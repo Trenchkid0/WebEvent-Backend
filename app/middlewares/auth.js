@@ -4,7 +4,7 @@ const { isTokenValid } = require('../utils/jwt');
 const authenticateUser = async (req, res, next) => {
   try {
     let token;
-    // check header
+   
     const authHeader = req.headers.authorization;
 
     if (authHeader && authHeader.startsWith('Bearer')) {
@@ -20,7 +20,6 @@ const authenticateUser = async (req, res, next) => {
 
     const payload = isTokenValid({ token });
 
-    // Attach the user and his permissions to the req object
     req.user = {
       email: payload.email,
       role: payload.role,
@@ -47,7 +46,7 @@ const authorizeRoles = (...roles) => {
 const authenticateParticipant = async (req, res, next) => {
   try {
     let token;
-    // check header
+   
     const authHeader = req.headers.authorization;
 
     if (authHeader && authHeader.startsWith('Bearer')) {
@@ -60,7 +59,6 @@ const authenticateParticipant = async (req, res, next) => {
 
     const payload = isTokenValid({ token });
 
-    // Attach the user and his permissions to the req object
     req.participant = {
       email: payload.email,
       lastName: payload.lastName,

@@ -1,4 +1,3 @@
-// import services images
 const { createImages } = require('../../../services/mongoose/images');
 
 const { StatusCodes } = require('http-status-codes');

@@ -19,15 +19,13 @@ const createEvents = async (req) => {
     talent,
   } = req.body;
 
-  // cari image, category dan talent dengan field id
   await checkingImage(image);
   await checkingCategories(category);
   await checkingTalents(talent);
 
-  // cari Events dengan field name
+ 
   const check = await Events.findOne({ title, organizer: req.user.organizer });
 
-  // apa bila check true / data Events sudah ada maka kita tampilkan error bad request dengan message pembicara duplikat
   if (check) throw new BadRequestError('judul event duplikat');
 
   const result = await Events.create({
@@ -118,19 +116,18 @@ const updateEvents = async (req) => {
     talent,
   } = req.body;
 
-  // cari image, category dan talent dengan field id
+
   await checkingImage(image);
   await checkingCategories(category);
   await checkingTalents(talent);
 
-  // cari Events dengan field name dan id selain dari yang dikirim dari params
-  const check = await Events.findOne({
+    const check = await Events.findOne({
     title,
     organizer: req.user.organizer,
     _id: { $ne: id },
   });
 
-  // apa bila check true / data Events sudah ada maka kita tampilkan error bad request dengan message pembicara duplikat
+  
   if (check) throw new BadRequestError('judul event duplikat');
 
   const result = await Events.findOneAndUpdate(
@@ -152,7 +149,7 @@ const updateEvents = async (req) => {
     { new: true, runValidators: true }
   );
 
-  // jika id result false / null maka akan menampilkan error `Tidak ada pembicara dengan id` yang dikirim client
+ 
   if (!result) throw new NotFoundError(`Tidak ada acara dengan id :  ${id}`);
 
   return result;

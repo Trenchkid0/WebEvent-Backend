@@ -10,12 +10,12 @@ const {
 } = require('../../errors');
 const { createTokenParticipant, createJWT } = require('../../utils');
 
-const { otpMail } = require('../mail');
+const { otpMail,checkoutMail } = require('../mail');
 
 const signupParticipant = async (req) => {
   const { firstName, lastName, email, password, role } = req.body;
 
-  // jika email dan status tidak aktif
+
   let result = await Participant.findOne({
     email,
     status: 'tidak aktif',
@@ -182,6 +182,10 @@ const checkoutOrder = async (req) => {
     });
   });
 
+
+
+  
+
   await checkingEvent.save();
 
   const historyEvent = {
@@ -197,6 +201,8 @@ const checkoutOrder = async (req) => {
     talent: checkingEvent.talent,
     organizer: checkingEvent.organizer,
   };
+
+  await checkoutMail(personalDetail.email, historyEvent)
 
   const result = new Orders({
     date: new Date(),

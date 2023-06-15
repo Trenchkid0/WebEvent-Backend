@@ -3,11 +3,10 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   console.log('err.errors');
   console.log(err.errors);
   let customError = {
-    // set default
+  
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     msg: err.message || 'Something went wrong try again later',
   };
-  // error validation dari mongoose
   if (err.name === 'ValidationError') {
     customError.msg = Object.values(err.errors)
       .map((item) => item.message)

@@ -8,11 +8,10 @@ dotenv.config();
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587,
-  secure: false, // true for 465, false for other ports
+  secure: false, 
   auth: {
     user: gmail,
     pass: password,
-    clientId: process.env.OAUTH_CLIENT_ID,
   },
 });
 
@@ -35,5 +34,25 @@ const otpMail = async (email, data) => {
   }
 };
 
+const checkoutMail = async (email,historyEvent) => {
+  try {
+    let template = fs.readFileSync('app/views/email/checkout.html', 'utf8');
 
-module.exports = { otpMail };
+    let message = {
+      from: gmail,
+      to: email,
+      subject: 'This is your receipt: ',
+      html: Mustache.render(template,historyEvent),
+    };
+    
+    return await transporter.sendMail(message);
+
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
+
+module.exports = { otpMail,
+  checkoutMail 
+};
