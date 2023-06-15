@@ -202,7 +202,7 @@ const checkoutOrder = async (req) => {
     organizer: checkingEvent.organizer,
   };
 
-  await checkoutMail(personalDetail.email, historyEvent)
+ 
 
   const result = new Orders({
     date: new Date(),
@@ -215,6 +215,8 @@ const checkoutOrder = async (req) => {
     historyEvent,
     payment,
   });
+
+   await checkoutMail(personalDetail.email, historyEvent)
 
   await result.save();
   return result;
