@@ -4,20 +4,20 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 
-const authCMSRouter = require("../app/api/v1/auth/router");
-const categoriesRouter = require("../app/api/v1/categories/router");
-const talentsRouter = require("../app/api/v1/talents/router");
-const imagesRouter = require("../app/api/v1/images/router");
-const eventsRouter = require("../app/api/v1/events/router");
-const organizersRouter = require("../app/api/v1/organizers/router");
-const userRefreshTokenRouter = require("../app/api/v1/userRefreshToken/router");
-const paymentsRouter = require("../app/api/v1/payments/router");
-const ordersRouter = require("../app/api/v1/orders/router");
-const participantsRouter = require("../app/api/v1/participants/router");
+const authCMSRouter = require("./app/api/v1/auth/router");
+const categoriesRouter = require("./app/api/v1/categories/router");
+const talentsRouter = require("./app/api/v1/talents/router");
+const imagesRouter = require("./app/api/v1/images/router");
+const eventsRouter = require("./app/api/v1/events/router");
+const organizersRouter = require("./app/api/v1/organizers/router");
+const userRefreshTokenRouter = require("./app/api/v1/userRefreshToken/router");
+const paymentsRouter = require("./app/api/v1/payments/router");
+const ordersRouter = require("./app/api/v1/orders/router");
+const participantsRouter = require("./app/api/v1/participants/router");
 const urlV1 = "/api/v1/cms";
 
-const notFoundMiddleware = require("../app/middlewares/not-found");
-const handleErrorMiddleware = require("../app/middlewares/handler-error");
+const notFoundMiddleware = require("./app/middlewares/not-found");
+const handleErrorMiddleware = require("./app/middlewares/handler-error");
 
 const index = express();
 index.use(cors());
